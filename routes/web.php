@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('user-login', [AuthController::class, 'userLogin'])->name('user.login');
 Route::get('signup', [AuthController::class, 'signup'])->name('signup');

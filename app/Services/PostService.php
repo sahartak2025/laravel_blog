@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PostService
 {
@@ -15,9 +16,8 @@ class PostService
      */
     public function store($request)
     {
-        $user = $request->user();
-        $formData = $request->all();
-        return $user->posts()->create($formData);
+        $post = new Post(['user_id' => Auth::id()]);
+        return $post->fill($request->all())->save();
     }
 
     public function storeApiPosts($posts)
@@ -40,9 +40,8 @@ class PostService
     /**
      * @return array
      */
-    public function allPosts(): array
+    public function allPosts(string $sort): array
     {
-        $sort = request('sort','desc');
         $posts = Post::orderBy('created_at', $sort)->paginate(10);
         $sort = $sort == 'desc' ? 'asc' : 'desc';
 
@@ -55,10 +54,9 @@ class PostService
     /**
      * @return array
      */
-    public function allUserPosts(): array
+    public function allUserPosts(string $sort): array
     {
-        $sort = request('sort','desc');
-        $posts = Post::where('user_id', '=', auth()->id())->orderBy('created_at', $sort)->paginate(10);
+        $posts = Auth::user()->posts()->orderBy('created_at', $sort)->paginate(10);
         $sort = $sort == 'desc' ? 'asc' : 'desc';
 
         return [

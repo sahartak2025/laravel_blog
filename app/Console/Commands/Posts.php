@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Services\PostService;
-use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -14,14 +13,14 @@ class Posts extends Command
      *
      * @var string
      */
-    protected $signature = 'posts';
+    protected $signature = 'sync-posts';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Receives posts from the API and stores them in the database.';
 
     /**
      * Create a new command instance.

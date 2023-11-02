@@ -13,7 +13,8 @@ class ProfileController extends Controller
      */
     public function index(PostService $postService): View
     {
-        $data = $postService->allUserPosts();
+        $sort = request('sort','desc');
+        $data = $postService->allUserPosts($sort);
         return view('profile.index', ['posts' => $data['posts'], 'sort' => $data['sort']]);
     }
 }
